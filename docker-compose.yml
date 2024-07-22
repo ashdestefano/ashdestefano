@@ -1,0 +1,21 @@
+services:
+  django:
+    build:
+      context: .
+      dockerfile: docker/django/Dockerfile
+    volumes:
+      - ./code/:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+  postgres:
+    build:
+      context: .
+      dockerfile: docker/postgres/Dockerfile
+    volumes:
+      - ./data/:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_DB=django_db
+    ports:
+      - "5432:5432"
