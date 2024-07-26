@@ -13,14 +13,18 @@ services:
     depends_on:
       - postgres
   postgres:
-    build:
-      context: .
-      dockerfile: docker/postgres/Dockerfile
+    image: postgres:16.3
+#    build:
+#      context: .
+#      dockerfile: docker/postgres/Dockerfile
     volumes:
-      - ./data/:/docker-entrypoint-initdb.d
+      - ./postgres/setup/:/docker-entrypoint-initdb.d
+      - ./postgres_data/:/var/lib/postgresql/postgres_data/
     environment:
       - POSTGRES_DB=django_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=pgpass
     ports:
       - "5432:5432"
+volumes:
+  postgres_data:
