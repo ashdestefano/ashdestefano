@@ -23,9 +23,7 @@ if [ ! -f /code/manage.py ]; then
   sed -i "s/'ENGINE': .*/'ENGINE': os.environ.get('POSTGRES_ENGINE', 'django.db.backends.sqlite3'),/g" "$PROJECT_DIR"/settings.py
   sed -i "s/'NAME': BASE_DIR \/ 'db.sqlite3',/'NAME': os.environ.get('POSTGRES_DB', BASE_DIR \/ 'db.sqlite3'),\n        'USER': os.environ.get('POSTGRES_USER', 'user'),\n        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),\n        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),\n        'PORT': os.environ.get('POSTGRES_PORT', '5432'),/g" "$PROJECT_DIR"/settings.py
 else
-  echo "Project exists. Starting..."
-  pip install django --break-system-packages
-  echo "Upgrading..."
+  echo "Project exists. Upgrading..."
   pip install --upgrade pip --break-system-packages
   echo "Installing dependencies..."
   pip install -r requirements.txt --break-system-packages
