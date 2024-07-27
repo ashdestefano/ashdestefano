@@ -8,4 +8,4 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 RUN apt update
-RUN apt install -y python3-venv python3-dev python3-pip libpq-dev nginx curl
+RUN apt install -y python3-venv python3-dev python3-pip libpq-dev nginx curl ncat
