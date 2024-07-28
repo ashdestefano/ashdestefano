@@ -21,6 +21,7 @@ if [ ! -f /code/manage.py ]; then
   echo "Installing dependencies..."
   pip install -r requirements.txt --break-system-packages
   echo "Migrating..."
+#  python3 manage.py flush --no-input
   python3 manage.py migrate
   echo "Cleaning up files..."
   rm db.sqlite3
