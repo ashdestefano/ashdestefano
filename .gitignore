@@ -1,2 +1,3 @@
 docker/django/.env.prod
 docker/postgres/.env.prod.db
+.idea/
