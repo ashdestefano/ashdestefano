@@ -27,6 +27,8 @@ services:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
+      args:
+        PROJECT_NAME: ashdestefano
     ports:
       - 80:80
     depends_on:
