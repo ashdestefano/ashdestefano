@@ -49,6 +49,9 @@ echo "Migrating..."
 python3 manage.py migrate
 
 echo "Starting server..."
-#python3 manage.py runserver 0.0.0.0:8000
-export PROJECT_NAME
-gunicorn $PROJECT_NAME.wsgi:application --bind 0.0.0.0:8000
+if [ "$PROJECT_ENV" = 'dev' ]; then
+  python3 manage.py runserver 0.0.0.0:8000
+else
+  export PROJECT_NAME
+  gunicorn $PROJECT_NAME.wsgi:application --bind 0.0.0.0:8000
+fi
