@@ -1,0 +1,37 @@
+services:
+  django:
+    build:
+      context: .
+      dockerfile: docker/django/Dockerfile
+    command: /bin/bash -c /code/startup.sh
+    volumes:
+      - ./code/:/code
+    expose:
+      - 8000
+    env_file:
+      - ./docker/django/.env.dev
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:16.3
+    volumes:
+      - ./postgres/setup/:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=django_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pgpass
+    ports:
+      - "5432:5432"
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+      args:
+        PROJECT_NAME: ashdestefano
+    ports:
+      - 80:80
+    depends_on:
+      - django
+volumes:
+  postgres_data:
